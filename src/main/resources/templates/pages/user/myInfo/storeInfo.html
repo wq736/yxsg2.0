@@ -1,0 +1,51 @@
+<!-- 引入店铺信息面板的js文件 -->
+<script type='text/javascript' src='js/my/stoInfo/stoInfoFunc.js'></script>
+<script type='text/javascript' src='js/my/stoInfo/stoInfoAjax.js'></script>
+<script type='text/javascript' src='js/my/stoInfo/stoInfoEvent.js'></script>
+
+<!-- 店铺信息面板 -->
+<div class="panel panel-default">
+	<div class="panel-heading">店铺信息</div>
+	<div class="panel-body">
+		<form class="form-horizontal">
+			<input id="myStoreId" type="hidden" />
+			<fieldset disabled>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">店铺名：</label>
+					<div class="col-lg-9">
+						<input name="stoName" type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">详细地址：</label>
+					<div class="col-lg-9">
+						<input name="stoAddress" type="tel" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">主营产品：</label>
+					<div class="col-lg-9">
+						<input name="stoMainShop" type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">注册时间：</label>
+					<div class="col-lg-9">
+						<input name="stoTime" type="text" class="form-control" disabled>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">店铺状态：</label>
+					<div class="col-lg-9">
+						<input name="stoStatus" type="text" class="form-control" disabled>
+					</div>
+				</div>
+			</fieldset>
+			<div class="form-group btns">
+				<button type="button" class="btn btn-default storeUpdate">修改</button>
+				<input id="saveStoreBtn" type="button" class="btn btn-primary" value="保存" disabled />
+				<a id="delMySto" class="text-danger">注销店铺</a>
+			</div>
+		</form>
+	</div>
+</div>			

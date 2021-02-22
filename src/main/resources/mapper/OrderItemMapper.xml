@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxsg.mapper.OrderItemMapper">
+	<resultMap id="BaseResultMap" type="com.yxsg.bean.OrderItem">
+		<result column="u_id" jdbcType="INTEGER" property="uId" />
+		<result column="u_Name" jdbcType="VARCHAR" property="uName" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+		<result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+		<result column="oi_time" jdbcType="TIMESTAMP" property="oiTime" />
+		<result column="oi_count" jdbcType="INTEGER" property="oiCount" />
+		<result column="oi_price" jdbcType="DECIMAL" property="oiPrice" />
+		<result column="oi_status" jdbcType="VARCHAR" property="oiStatus" />
+		<result column="o_id" jdbcType="VARCHAR" property="oId" />
+		<result column="exit_why" jdbcType="VARCHAR" property="exitWhy" />
+	</resultMap>
+	<!-- 购物车开始 -->
+	<!-- 批量插入详细信息 -->
+	<insert id="insert">
+		insert into orderitem (u_id, shop_name, oi_time, oi_count, oi_price, sto_id, oi_status, o_id) values 
+		<foreach collection="items" item="item" separator=",">
+  			(#{item.uId}, #{item.shopName}, #{item.oiTime}, #{item.oiCount},
+  			#{item.oiPrice}, #{item.stoId}, #{oiStatus}, #{oId})
+  		</foreach>
+	</insert>
+	<!-- 购物车结束 -->
+	
+	<!-- 个人订单面板开始 -->
+	<!-- 根据订单id、购买时间、商品名称查询商品id、订单状态 -->
+	<select id="selShopIdSta" parameterType="java.lang.Object" resultType="map">
+		SELECT s.shop_id shopId, o.oi_status oiStatus FROM orderitem o, shop s
+		WHERE o.shop_name = s.shop_name
+		AND o.sto_id = s.sto_id
+		AND o.o_id = #{data.oId} 
+		AND o.shop_name = #{data.shopName}
+		AND o.oi_time = #{data.time}
+	</select>
+	<!-- 个人订单面板结束 -->
+	
+	<!-- 店铺商品管理面板开始 -->
+	<select id="selOiByShopName" parameterType="java.lang.String" resultType="com.yxsg.bean.OrderItem">
+		select o.u_id, u.u_name, o.shop_name, o.oi_time, o.oi_count, o.oi_price, o.oi_status, o.o_id, o.exit_why
+		from `user` u, orderitem o
+		where u.u_id = o.u_id
+		and o.s_can = "Y"
+		<if test="shopName != null">and o.shop_name = #{shopName}</if>
+		<if test="stoId != null">and o.sto_id = #{stoId}</if>
+	</select>
+	<!-- 店铺商品管理面板结束 -->
+	
+	<!-- 店铺订单管理面板开始 -->
+	<!-- 以下2条sql语句查询记录时的公共条件 -->
+	<sql id="oiPageWhere">
+		<if test='order.uId != null'>and o.u_id = #{order.uId}</if>
+		<if test='order.shopName != null'>and o.shop_name like #{order.shopName}</if>		
+		<if test='order.oiTime != null'>and o.oi_time >= #{order.oiTime}</if>
+		<if test='order.oiStatus != null'>and o.oi_status = #{order.oiStatus}</if>
+	</sql>
+	
+	<!-- 查看店铺对应的订单数 -->
+	<select id="selOrderCount" resultType="java.lang.Integer">
+		select count(*) from orderitem o
+		where sto_id = #{stoId}
+		and s_can = "Y"
+		<include refid="oiPageWhere"></include>
+	</select>
+	
+	<!-- 查看店铺对应的订单详情 -->
+	<select id="selStoOrder" resultType="com.yxsg.bean.OrderItem">
+		select o.u_id, u.u_name, o.shop_name, o.oi_time, o.oi_count, o.oi_price, o.oi_status, o.o_id, o.exit_why
+		from `user` u, orderitem o
+		where u.u_id = o.u_id
+		and o.sto_id = #{stoId}
+		and o.s_can = "Y"
+		<include refid="oiPageWhere"></include>
+		order by o.oi_time desc
+		limit #{begin}, #{pageSize}
+	</select>
+	
+	<!-- 根据商品id、订单号、购买时间修改商品的状态 -->
+	<update id="updStaByShop">
+		update orderitem set
+		oi_status = #{status}
+		<if test="updSta.exitWhy != null">, exit_why=#{updSta.exitWhy}</if>
+		<if test="status == '取消退货'">, exit_why=null</if>
+		where shop_name = #{updSta.shopName}
+		and o_id = #{updSta.oId}
+		and oi_time = #{updSta.time}
+	</update>
+	
+	<!-- 根据订单id查看已发送、已签收数量 -->
+	<select id="selCountBySta" parameterType="java.lang.Object" resultType="map">
+		SELECT 		
+		(SELECT COUNT(oi_status)FROM orderitem WHERE o_id = #{oId} and s_can = "Y") orderNum, 
+		(SELECT COUNT(oi_status)FROM orderitem WHERE oi_status = '已发送' AND o_id = #{oId} and s_can = "Y") sendCount, 
+		(SELECT COUNT(oi_status)FROM orderitem WHERE oi_status IN ('已签收', '已退货', '已退款') AND o_id = #{oId} and s_can = "Y") putExitCount,
+		o_status FROM `order`
+		WHERE o_id = #{oId}
+	</select>
+	
+	<!-- 根据商品id查看未处理的订单数 -->
+	<select id="selNotHandleCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM orderitem
+		WHERE oi_status IN ('已发送', '申请退货中', '未发送')
+		<if test='shopName != null'>AND shop_name = #{shopName}</if>
+		<if test='stoId != null'>AND sto_id = #{stoId}</if>
+	</select>
+	
+	<!-- 设置该条订单记录不做店铺订单管理面板中显示 -->
+	<update id="updScan">
+		update orderitem set s_can = #{isShow}
+		where shop_name = #{updScan.shopName}
+		<if test="updScan.oId != null">and o_id = #{updScan.oId}</if>
+		<if test="updScan.time != null">and oi_time = #{updScan.time}</if>
+	</update>
+	
+	<!-- 删除商品id相关的订单信息 -->
+	<delete id="delByShopId" parameterType="java.lang.String">
+		delete from orderitem
+		where <if test="shopId != null">shop_id = #{shopId}</if>
+			  <if test="stoId != null">shop_id like #{stoId}</if>
+	</delete>
+	<!-- 店铺订单管理面板结束 -->
+</mapper>

@@ -1,0 +1,18 @@
+/* 设置面板的位置 */
+.conSite{margin-top: 80px}
+
+/* 用户管理和店铺管理模块去除浮动 */
+.clear-float{clear: left;}
+
+/* 搜索框的间距调整 */
+#user form div, #store form div{margin-bottom: 5px;}
+#user form div input, #store form div input{margin-top: 2px;}
+
+@media(max-width: 767px){
+	#user form div, #store form div{
+		float: left;
+		margin-bottom: 10px;
+		margin-right: 10px;
+	}
+	#user form button, #store form button{float: left;}
+}

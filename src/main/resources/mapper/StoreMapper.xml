@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxsg.mapper.StoreMapper">
+	<!-- 后台管理===店铺管理开始 -->
+	<!-- 查询店铺数量 -->
+	<select id="selStoreCount" resultType="java.lang.Integer" >
+		select count(*) from store
+		<if test="stoName !=  null">where sto_name = #{stoName}</if>
+	</select>
+	
+	<!-- 根据页码查询店铺信息 -->
+	<select id="selectStorePage" parameterType="java.lang.Object" 	resultType="com.yxsg.bean.Store">
+		select sto_id, sto_name, sto_time, sto_address, sto_status ,u_id
+		from store
+		<if test="stoName !=  null">where sto_name = #{stoName}</if>		
+		limit #{begin}, #{pageSize}
+	</select>
+	<!-- 后台管理===店铺管理结束 -->
+</mapper>

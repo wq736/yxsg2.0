@@ -1,0 +1,47 @@
+<!-- 单击刷新验证码 -->
+<script>
+$(function() {
+	$("#myStore form div:eq(3) img").click(function() {
+		this.src = "kaptcha.jpg";
+	});
+});
+</script>
+<!-- 配置文本框与验证码的样式 -->
+<style>
+	#myStore form > div:last-child .form-control{width: 60%;}
+	#myStore form > div:last-child img{margin-top: 2px;}
+</style>
+
+<!-- 创建店铺模态框 -->
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="close">&times;</button>
+			<h4 id="creStoTitle" class="modal-title">店铺创建</h4>
+		</div>
+		<div class="modal-body">
+			<form class="has-success">
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-pencil"></span>				
+					<input name="stoName" class="form-control" type="text" placeholder="请输入店铺名:" />
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-home"></span>				
+					<input name="stoAddress" class="form-control" type="text" placeholder="请输入地址:" />				
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-gift"></span>				
+					<input name="stoMainShop" class="form-control" type="text" placeholder="请输入主要销售的产品:" />
+				</div>
+				<div class="input-group">			
+					<input name="addStoCode" class="form-control" type="text" placeholder="请输入验证码:" />
+					<img class="input-group" alt="" src="" width="40%" height="34px">	
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<input id="regStoreBtn" class="btn btn-success" type="button" value="注册" />
+			<input class="btn btn-default" type="button" data-dismiss="modal" value="取消" />
+		</div>
+	</div>
+</div>

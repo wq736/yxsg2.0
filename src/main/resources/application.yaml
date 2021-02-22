@@ -1,0 +1,19 @@
+spring:
+  web:
+    resources:
+      #设置静态资源访问目录(templates存放html，static存放css,js等，userImg存放用户上传的图片(包括头像、商品图片、评论图片))
+      static-locations: [classpath:/templates/, classpath:/static/, file:D:/idea/projects/userImg/]
+  datasource: #配置数据源
+    username: root #配置连接数据库的用户名
+    password: 2018610229 #配置连接数据库的密码
+    url: jdbc:mysql://localhost:3306/yixie?useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true #配置数据库的路径
+    driver-class-name: com.mysql.cj.jdbc.Driver #配置连接数据库的驱动
+  servlet:
+    multipart:
+      max-file-size: 10MB #设置上传的单个文件的最大容量为10MB
+      max-request-size: 100MB #设置请求数据的最大容量为100MB
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml  #sql映射文件的位置
+  configuration:
+    map-underscore-to-camel-case: true #开启驼峰命名
+

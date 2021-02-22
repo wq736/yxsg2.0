@@ -1,0 +1,44 @@
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="close">&times;</button>
+			<h4 id="addShopTitle" class="modal-title">添加商品</h4>
+		</div>
+		<div class="modal-body">
+			<form id="addShopForm" enctype="multipart/form-data" class="has-success">
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-gift"></span>					
+					<input name="shopName" type="text" class="form-control" placeholder="请输入商品名称：" />
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-yen"></span>					
+					<input name="shopPrice" type="text" class="form-control" placeholder="请输入商品价格：" />
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-th-large"></span>					
+					<input name="shopUnit" type="text" class="form-control" placeholder="请输入规格(单位，例元/斤)：" />
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-object-align-bottom"></span>					
+					<input name="shopDiscount" type="text" class="form-control" placeholder="请输入库存：" />
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon glyphicon glyphicon-pencil"></span>				
+					<input name="shopStock" type="text" class="form-control" placeholder="请输入折扣(1~10,10表示没有折扣)：" />
+				</div>
+		
+				谷物<input name="shopClass" type="radio" value="谷物" />&nbsp;&nbsp;
+				瓜果<input name="shopClass" type="radio" value="瓜果" checked />&nbsp;&nbsp;
+				蔬菜<input name="shopClass" type="radio" value="蔬菜" />&nbsp;&nbsp;
+				副产品<input name="shopClass" type="radio" value="副产品" />
+		
+				<input name="pic" type="file" title="请设置一张主要的图片" multiple="multiple"  accept="image/*" />
+				<input name="pic" type="file" title="请设置一张次要的图片(可不设置)" multiple="multiple"  accept="image/*" />
+				<input name="pic" type="file" title="请设置一张次要的图片(可不设置)" multiple="multiple"  accept="image/*" />
+				<input name="pic" type="file" title="请设置一张次要的图片(可不设置)" multiple="multiple"  accept="image/*" />
+				<button id="saveShopBtn" class="btn btn-success" type="button">上传</button>
+				<button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
+			</form>
+		</div>
+	</div>
+</div>

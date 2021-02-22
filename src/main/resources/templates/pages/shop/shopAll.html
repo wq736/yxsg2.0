@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>购物大厅</title>
+<!-- 设置超链接开始地址 -->
+<base href="http://localhost:8080">
+<!-- 引入css、js等 -->
+<script type='text/javascript' src='js/unit/jquery-3.5.1.js' ></script>
+<script type="text/javascript" src="js/public/commonJs&Css.js"></script>
+<script type="text/javascript" src="js/shop/shopAll/shopAll.js"></script>
+<link rel='stylesheet' type='text/css' href='css/shopAll.css' />
+</head>
+<body>
+	<nav id="headerNavBar" class="navbar navbar-inverse navbar-fixed-top"></nav>
+	<script type="text/javascript">
+		$("#headerNavBar").load("pages/public/header.html");
+		/* 设置导航条的选中样式 */
+		$(function() {$.addNavClass(1);});
+	</script>
+	<div id="shopClassBar" class="container conSite">
+		<ul class="list-group list-group-horizontal">
+			<li class="list-group-item"><b>谷物</b></li>
+			<li class="list-group-item">大米</li>
+			<li class="list-group-item">小米</li>
+			<li class="list-group-item">小麦</li>
+			<li class="list-group-item">玉米</li>
+			<li class="list-group-item">高粱</li>
+			<li class="list-group-item">大豆</li>
+			<li class="list-group-item">蚕豆</li>
+			<li class="list-group-item">豌豆</li>
+			<li class="list-group-item" data-shopClass="谷物">更多>></li>
+		</ul>
+		<ul class="list-group list-group-horizontal">
+			<li class="list-group-item"><b>瓜果</b></li>
+			<li class="list-group-item">苹果</li>
+			<li class="list-group-item">沙果</li>
+			<li class="list-group-item">橘子</li>
+			<li class="list-group-item">香蕉</li>
+			<li class="list-group-item">枣</li>
+			<li class="list-group-item">哈密瓜</li>
+			<li class="list-group-item" data-shopClass="瓜果">更多>></li>
+		</ul>
+		<ul class="list-group list-group-horizontal">
+			<li class="list-group-item"><b>蔬菜</b></li>
+			<li class="list-group-item">马铃薯</li>
+			<li class="list-group-item">西红柿</li>
+			<li class="list-group-item">山药</li>
+			<li class="list-group-item">冬瓜</li>
+			<li class="list-group-item">西兰花</li>
+			<li class="list-group-item">丝瓜</li>
+			<li class="list-group-item" data-shopClass="蔬菜">更多>></li>
+		</ul>
+		<ul class="list-group list-group-horizontal">
+			<li class="list-group-item"><b>副产品</b></li>
+			<li class="list-group-item">罐头</li>
+			<li class="list-group-item">柿饼</li>
+			<li class="list-group-item">桂圆干</li>
+			<li class="list-group-item">枸杞</li>
+			<li class="list-group-item" data-shopClass="副产品">更多>></li>
+		</ul>
+		<ul class="list-group list-group-horizontal">
+			<li class="list-group-item"><b>其它商品</b></li>
+			<li class="list-group-item" data-shopType="seasonShop">季节推荐</li>
+			<li class="list-group-item" data-shopType="hotShop">热门商品</li>
+			<li class="list-group-item" data-shopType="stockShop">打折促销</li>
+		</ul>
+	</div>
+	
+	<!-- 商品 -->
+	<div id="shopAll" class="container shopArea">
+	
+	
+	</div>
+	
+	<!-- 分页 -->
+	<nav id="shopAllNav" class="page shopDiv" aria-label="Page navigation">
+		<ul data-name="pageNav" class="pagination" ></ul>
+	</nav>
+	
+	<footer></footer>
+	
+	<div class="modal fade bs-example-modal-sm" id="login" tabindex="-1"></div>		<!-- 登录模态框 -->
+	<div class="modal fade bs-example-modal-sm" id="register" tabindex="-1"></div>	<!-- 注册模态框 -->
+	<script type="text/javascript">
+		$("#login").load("pages/public/login.html");
+		$("#register").load("pages/public/register.html");
+	</script>
+</body>
+</html>

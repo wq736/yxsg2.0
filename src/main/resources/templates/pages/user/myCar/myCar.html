@@ -1,0 +1,24 @@
+<!-- 引入我的---购物车面板的js文件  -->
+<script type='text/javascript' src='js/my/myCar/myCarFunc.js'></script>
+<script type='text/javascript' src='js/my/myCar/myCarAjax.js'></script>
+<script type='text/javascript' src='js/my/myCar/myCarEvent.js'></script>
+
+<div class="caozuo">
+	<span class="visible-xs-inline">商品：<b>0</b>，共计￥<b>0.00</b>元</span>
+	<span class="hidden-xs">购物车中共有<b>0</b>件商品，共计￥<b>0.00</b>元</span>
+	<button id='delNotExistShop' type="button" class="btn btn-primary">刷新</button>
+	<button id='carEmpty' type="button" class="btn btn-primary">清空</button>
+	<button id="carEnd" type="button" class="btn btn-primary">结算</button>
+</div>
+<!-- 购物车列表 -->
+<div class="table-responsive">
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr><th>购物号</th><th>商品</th><th>数量</th><th>单价</th><th>总价</th><th>店铺</th><th>添加时间</th><th>操作</th></tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>	
+<nav id="carManageNav" class="page table" aria-label="Page navigation">
+	<ul data-name="pageNav" class="pagination" ></ul>
+</nav>

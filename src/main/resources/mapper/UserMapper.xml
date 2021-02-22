@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxsg.mapper.UserMapper">
+	<!-- 将表中的字段映射到JavaBean对象的属性 -->
+	<resultMap id="BaseResultMap" type="com.yxsg.bean.User">
+	  <id column="u_id" jdbcType="INTEGER" property="uId" />
+	  <result column="u_name" jdbcType="VARCHAR" property="uName" />
+	  <result column="u_password" jdbcType="VARCHAR" property="uPassword" />
+	  <result column="u_email" jdbcType="VARCHAR" property="uEmail" />
+	  <result column="u_tel" jdbcType="VARCHAR" property="uTel" />
+	  <result column="u_time" jdbcType="VARCHAR" property="uTime" />
+	  <result column="u_status" jdbcType="VARCHAR" property="uStatus" />
+	  <result column="u_gender" jdbcType="VARCHAR" property="uGender" />
+	  <result column="u_header" jdbcType="VARCHAR" property="uHeader" />
+	  <result column="u_money" jdbcType="DECIMAL" property="uMoney" />
+	</resultMap>
+	
+	<!-- 导航条开始 -->
+	<!-- 查看用户状态 -->
+	<select id="selStaGenByName" parameterType="java.lang.String" resultType="map">
+		SELECT IF(u_status='正常', 'staCan', 'notStaCan') uStatus, 
+		IF(u_gender='1', 'genCan', 'notGenCan') uGender 
+		FROM `user` 
+		WHERE u_name = #{uName}
+	</select>
+	<!-- 导航条结束 -->
+	
+	<!-- 我的===个人信息开始 -->
+	<!-- 修改用户的金额 -->
+	<update id="updMoneyById" parameterType="java.lang.Object">
+		update user set u_money = u_money + #{yue} where
+		<choose>
+			<when test="uId != null">u_id = #{uId}</when>
+			<when test="stoId != null">u_id = (
+				select u_id from store
+				where sto_id = #{stoId})
+			</when>
+			<when test="oId != null"> u_id = (
+				select distinct u_id from orderitem
+				where o_id = #{oId})
+			</when>
+		</choose>
+	</update>
+	<!-- 我的===个人信息结束 -->
+	
+	<!-- 后台管理===用户管理开始 -->
+	<!-- 查询用户总数 -->
+	<select id="selUserCount" resultType="java.lang.Integer">
+		select count(*) from user
+		where u_gender = "2"
+		<if test="uName != null">and u_Name = #{uName}</if>
+	</select>
+	
+	<!-- 查询全部普通的用户(可以添加用户名作为条件) -->
+	<select id="selectUserByGender" parameterType="java.lang.Object" resultMap="BaseResultMap">
+		select u_id, u_name, u_password, u_tel, u_email, u_time, u_status
+		from user
+		where u_gender = "2"
+		<if test="uName != null">and u_Name = #{uName}</if>
+		limit #{begin}, #{size}
+	</select>
+	<!-- 后台管理===用户管理结束 -->
+</mapper>

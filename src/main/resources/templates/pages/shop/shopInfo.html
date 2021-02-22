@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>购物大厅</title>
+<!-- 设置超链接开始地址 -->
+<base href="http://localhost:8080">
+<!-- 引入css、js等 -->
+<script type='text/javascript' src='js/unit/jquery-3.5.1.js' ></script>
+<script type="text/javascript" src="js/public/commonJs&Css.js"></script>
+<script type="text/javascript" src="js/shop/shopInfo/shopInfo.js"></script>
+<link rel='stylesheet' type='text/css' href='css/shopInfo.css' />
+<style type="text/css">
+	.pjMark{
+		float: right;
+		margin-top: 10px;
+	}
+	span{cursor: pointer;}
+	.conSite{margin-top: 60px;}
+</style>
+</head>
+<body>
+	
+	<!-- 导航条 -->
+	<nav id="headerNavBar" class="navbar navbar-inverse navbar-fixed-top"></nav>
+	<script type="text/javascript">
+		$("#headerNavBar").load("pages/public/header.html");
+	</script>
+	
+	<!-- 商品详情 -->
+	<div class="container conSite">
+		<div id="picArea" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+			<img src="" />	<!-- 大图 -->
+			<p></p>
+			<img src="" />	<!-- 小图 -->
+			<img src="" />
+			<img src="" />
+			<img src="" />
+		</div>
+		<div id="infoArea" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<h3 data-name='name'></h3>
+			<p data-id=''>所属店铺：</p>
+			<p>创建时间：</p>
+			<p data-name='price'>价格：</p>
+			<p>规格：</p>
+			<p data-name='stock'>折扣：</p>
+			<p>发货地址：</p>
+			<p>累计成交价：￥</p>
+			<p data-name='discount'>库存：</p>
+			<p>联系方式：</p>
+			<button id="addToCarBtn" class="btn btn-success">加入购物车</button>
+			<button id="lookToCarBtn" class="btn btn-default">查看购物车</button>
+		</div>
+		
+		<!-- 畅销榜 -->
+		<div class="col-lg-2  col-md-2 hidden-sm hidden-xs">
+			<div id="rank" class="list-group">
+				<ul><li><h4 class="text-danger">畅销榜</h4></li>
+				<li class="text-danger"></li>				
+				<li class="text-danger"></li>
+				<li class="text-danger"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li></ul>				
+			</div>
+		</div>
+		<p></p>
+		
+		<!-- 评论区域 -->
+		<div id="pjArea" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h4>商品评价</h4>
+			<span>发送评论</span>
+			<div id="commList" ></div>
+		</div>	
+	</div>
+	
+	<!-- 分页 -->
+	<nav id="commPage" class="page commDiv" aria-label="Page navigation">
+		<ul data-name="pageNav" class="pagination" ></ul>
+	</nav>
+	
+	<footer></footer>
+	
+	<div class="modal fade bs-example-modal-sm" id="login" tabindex="-1"></div>		<!-- 登录模态框 -->
+	<div class="modal fade bs-example-modal-sm" id="register" tabindex="-1"></div>	<!-- 注册模态框 -->
+	<div class="modal fade bs-example-modal-sm" id="addCommont" tabindex="-1"></div><!-- 发送评论 -->
+	<script type="text/javascript">
+		$("#login").load("pages/public/login.html");
+		$("#register").load("pages/public/register.html");
+		$("#addCommont").load("pages/shop/sendComm.html");
+	</script>
+	
+	
+</body>
+</html>

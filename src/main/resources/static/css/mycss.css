@@ -1,0 +1,101 @@
+/*全局*/
+/*设置鼠标移到a标签上显示手的形状*/
+a{cursor: pointer;}
+
+/*设置鼠标悬停出现下拉菜单*/
+.nav > li:hover .dropdown-menu {display: block;}
+
+/* 网站logo的大小 */
+.logo{
+	width:auto;
+	height:50px;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+
+/* 页面宽度<=768时 */
+@media(max-width: 768px){
+	#menu ul li{display: inline-block;}	/* 设置导航条元素位行内块 */
+	#logreg{	/* 设置登录/注册的位置 */
+		float: left;
+		margin-top: -5px;
+	}
+	#headSeaInput{	/* 设置搜索框的位置 */
+		float: left;
+		margin-top: -3px;
+		margin-bottom: 15px;
+	}
+}
+#headSeaInput input{margin-top: 2px}
+
+/* 设置当页面宽度>=768时的上间距 */
+@media(min-width: 768px){
+	/* 设置搜索框在页面正常大小时的位置 */
+	#headSeaInput{
+		padding: 0;
+		margin-top: 8px;
+		margin-right: 8px;
+	}
+	#logreg{margin-top: 15px;}
+}
+
+/* 设置导航栏右侧搜索/注册登录区域的间距 */
+#logreg{
+	width: 105px;
+	list-style: none;
+	color: #ffffff;
+	margin-left: 6px;
+}
+
+/* 设置导航条下拉列表的背景 */
+#menu .dropdown-toggle ul{
+	background-color: #343434;
+	color: #9d9d9d;	
+	min-width:70px;
+}
+
+/* 设置导航条下拉列表的字体颜色 */
+#menu .dropdown-toggle ul a{color: #9d9d9d}
+#menu .dropdown-toggle ul a:hover{
+	background-color: #343434;
+	color: #ffffff
+}
+#logreg ul span{color: #ffffff;}
+
+/* 设置导航条右侧登录/注册的宽度以及超出时隐藏 */
+#logreg .overHidden{
+	width: 105px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* 设置页脚 */
+footer{
+	background-image: url(../img/index/index_footer.jpg);
+	width: 100%;
+	height: 200px;
+	margin-top: 20px;
+}
+
+/* 设置购物车面板的操作按钮面板 */
+.caozuo{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	text-align: right;
+}
+
+/* 分页 */
+.page{text-align: center;}
+
+/* 设置按钮显示在面板的居中位置 */
+.btns{text-align: center;}
+
+/* 设置登录、注册模态框中表单项的间距 */
+#login form div, #register form div{margin-bottom: 5px;}
+#login form div input, #register form div input{margin-top: 2px;}
+
+/* 表格的条纹 */
+.table-striped{background-color: rgba(0,255,183,0.2);}

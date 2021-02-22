@@ -1,0 +1,32 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxsg.mapper.CommentMapper">
+	<resultMap id="BaseResultMap" type="com.yxsg.bean.Comment">
+		<result column="com_time" jdbcType="VARCHAR" property="comTime" />
+		<result column="u_name" jdbcType="VARCHAR" property="uName" />
+		<result column="com_mark" jdbcType="INTEGER" property="comMark" />
+		<result column="com_content" jdbcType="VARCHAR" property="comContent" />
+		<result column="com_pic1" jdbcType="VARCHAR" property="comPic1" />
+		<result column="com_pic2" jdbcType="VARCHAR" property="comPic2" />
+		<result column="com_pic3" jdbcType="VARCHAR" property="comPic3" />
+		<result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+		<result column="u_header" jdbcType="VARCHAR" property="uHeader" />
+	</resultMap>
+	<!-- 商品详情页开始 -->
+	<!--根据商品id或店铺id删除评论-->
+	<delete id="delComByShop" parameterType="java.lang.String">
+		delete from `comment`
+		where <if test="shopId != null">shop_id = #{shopId}</if>
+			  <if test="stoId != null">shop_id like #{stoId}</if>
+	</delete>
+	
+	<!-- 查看某一件商品的某一页评论 -->
+	<select id="selectAllByShop" resultMap="BaseResultMap">
+		SELECT c.com_time, u.u_name, c.com_mark, c.com_content, c.com_pic1, c.com_pic2, c.com_pic3, u.`u_header`
+		FROM `comment` c, `user` u
+		WHERE shop_id = #{shopId}
+		AND c.`u_id` = u.`u_id`
+		order by com_time desc
+		limit #{begin}, #{size}
+	</select>
+	<!-- 商品详情页结束 -->
+</mapper>

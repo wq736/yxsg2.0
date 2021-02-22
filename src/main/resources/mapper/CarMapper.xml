@@ -1,0 +1,73 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxsg.mapper.CarMapper">
+	<resultMap id="BaseResultMap" type="com.yxsg.bean.Car">
+	  <id column="c_id" jdbcType="VARCHAR" property="cId" />
+	  <result column="u_name" jdbcType="VARCHAR" property="uName" />
+	  <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+	  <result column="shop_sum" jdbcType="INTEGER" property="shopSum" />
+	  <result column="shop_price" jdbcType="DECIMAL" property="shopPrice" />
+	  <result column="sto_id" jdbcType="INTEGER" property="stoId" />
+	  <result column="shop_discount" jdbcType="INTEGER" property="shopDiscount" />
+	  <result column="c_time" jdbcType="VARCHAR" property="cTime" />
+	</resultMap>
+	
+	<!-- 我的===购物车开始 -->
+	<!-- 返回一页对应用户的一页购物车的数据 -->
+	<select id="selCarByUname" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT c.`c_id`, u.u_name, IFNULL(s.`shop_name`, "该商品已下架") shop_name, c.shop_sum, 
+		c.shop_price, c.sto_id, IFNULL(s.shop_discount, 0) shop_discount, c.c_Time
+		FROM car c
+		LEFT OUTER JOIN shop s
+		ON c.`shop_id` = s.`shop_id`
+		LEFT OUTER JOIN `user` u
+		ON c.u_id = u.u_id
+		WHERE c.u_id = #{uId}
+		ORDER BY c.c_id DESC 
+		limit #{begin}, #{pageSize}
+	</select>
+	
+	<!-- 根据用户id返回购物车中的商品id -->
+	<select id="selShopIdById" parameterType="java.lang.Object" resultType="java.lang.String">
+		select shop_id from car where 
+		<if test="uId != null">u_id = #{uId}</if>
+		<if test="cId != null">c_id = #{cId}</if>
+	</select>
+	
+	<!-- 根据用户id或购物号删除购物车信息 -->
+	<delete id="delCarByUid" parameterType="java.lang.Object">
+		delete from car where 
+		<if test="uId != null">u_id = #{uId}</if>
+		<if test="cId != null">c_id = #{cId}</if>
+	</delete>
+	
+	<resultMap id="orderItems" type="com.yxsg.bean.OrderItem">
+	  <result column="u_id" jdbcType="INTEGER" property="uId" />
+	  <result column="sto_id" jdbcType="INTEGER" property="stoId" />
+	  <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+	  <result column="c_time" jdbcType="VARCHAR" property="oiTime" />
+	  <result column="shop_sum" jdbcType="INTEGER" property="oiCount" />
+	  <result column="shop_price" jdbcType="DECIMAL" property="oiPrice" />
+	</resultMap>
+	<!-- 查询购物车中全部的信息并存放到订单的详细信息中 -->
+	<select id="selectAll" parameterType="java.lang.Integer" resultMap="orderItems">
+		select c.u_id, s.shop_name, c.c_time, c.shop_sum, c.shop_price, SUBSTRING(c.shop_id, 1, LOCATE('-', c.shop_id) - 1) sto_id
+		from car c, shop s
+		where s.shop_id = c.shop_id
+		and c.u_id = #{uId}
+	</select>
+	
+	<!-- 删除用户购物车中已下架的商品 -->
+	<delete id="delShopByNotExit" parameterType="java.lang.Integer">
+		DELETE FROM car
+		WHERE shop_id NOT IN(
+			SELECT ids.shop_id FROM
+			(SELECT c.shop_id FROM car c, shop s
+			WHERE c.shop_id = s.shop_id) ids
+		)
+		OR sto_id IN (
+			select sto_id from store where sto_status = "注销"
+		)
+		AND u_id = #{uId}
+	</delete>
+	<!-- 我的===购物车结束 -->
+</mapper>

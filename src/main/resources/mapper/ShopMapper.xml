@@ -1,0 +1,198 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxsg.mapper.ShopMapper">
+	<!-- 创建映射关系 -->
+	<resultMap id="BaseResultMap" type="com.yxsg.bean.Shop">
+	  <id column="shop_id" jdbcType="VARCHAR" property="shopId" />
+	  <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+	  <result column="shop_class" jdbcType="VARCHAR" property="shopClass" />
+	  <result column="shop_price" jdbcType="DECIMAL" property="shopPrice" />
+	  <result column="shop_unit" jdbcType="VARCHAR" property="shopUnit" />
+	  <result column="shop_time" jdbcType="VARCHAR" property="shopTime" />
+	  <result column="shop_stock" jdbcType="INTEGER" property="shopStock" />
+	  <result column="shop_discount" jdbcType="INTEGER" property="shopDiscount" />
+	  <result column="shop_bpicture" jdbcType="VARCHAR" property="shopBpicture" />
+	  <result column="shop_spicture1" jdbcType="VARCHAR" property="shopSpicture1" />
+	  <result column="shop_spicture2" jdbcType="VARCHAR" property="shopSpicture2" />
+	  <result column="shop_spicture3" jdbcType="VARCHAR" property="shopSpicture3" />
+	  <result column="sto_id" jdbcType="INTEGER" property="stoId" />
+	  <result column="shop_allprice" jdbcType="DECIMAL" property="shopAllPrice" />
+	  <result column="sto_address" jdbcType="DECIMAL" property="stoAddress" />
+	  <result column="u_tel" jdbcType="DECIMAL" property="uTel" />
+	</resultMap>
+	
+	<!--不查询被禁用店铺、以及禁用用户的商品 -->
+	<sql id="notFountShop">
+		and sto_id in(
+			select s.sto_id from store s, `user` u
+			where s.u_id = u.u_id 
+			and s.sto_status = "正常"
+			and u.u_status = "正常"
+		)
+	</sql>
+	
+	<!-- 首页调用开始 -->
+	<!-- 根据季节查询商品 -->
+	<select id="selShopBySeason" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select shop_id, shop_name, shop_price, shop_allprice, shop_bpicture
+		from shop
+		where shop_time between #{begin} and #{end}
+		<include refid="notFountShop"></include>
+		order by shop_time desc
+		limit 0, 10 
+	</select>
+	
+	<!-- 根据商品的总销售额查询商品 -->
+	<select id="selShopByAllPrice" resultMap="BaseResultMap">
+		select shop_id, shop_name, shop_price, shop_allprice, shop_bpicture
+		from shop
+		where 1 = 1
+		<include refid="notFountShop"></include>
+		order by shop_allprice desc
+		limit 0, 10 
+	</select>
+
+	<!-- 查询有折扣的前10件商品 -->
+	<select id="selShopByStock" resultMap="BaseResultMap">
+		select shop_id, shop_name, shop_price, shop_allprice, shop_bpicture, shop_stock
+		from shop
+		where shop_stock != 10
+		and sto_id in(
+			select sto_id from store
+			where sto_status = "正常"
+		)
+		order by shop_time desc
+		limit 0, 10 
+	</select>
+	<!-- 首页调用结束 -->
+
+	<!-- "购物大厅"调用开始 -->
+	<!-- 以下2条sql语句的公共条件 -->
+	<sql id="shopWhere">
+		<where><choose>
+			<when test="pageNeed.nameLike != null">shop_name like #{pageNeed.nameLike}</when>
+			<when test="pageNeed.shopClass != null">shop_class like #{pageNeed.shopClass}</when>
+			<when test="pageNeed.indexMore != null">
+				<choose>
+					<when test='pageNeed.indexMore == "seasonShop"'>shop_time between #{pageNeed.beginDate} and #{pageNeed.endDate}</when>
+					<when test='pageNeed.indexMore == "stockShop"'>shop_stock != 10</when>					
+					<otherwise>1 = 1</otherwise>
+				</choose>
+			</when>
+			<otherwise>1 = 1</otherwise>
+		</choose></where>
+		<include refid="notFountShop"></include>
+	</sql>
+	
+	<!-- 查询对应的商品数量 -->
+	<select id="selShopCount" parameterType="map" resultType="java.lang.Integer">
+		select count(*) from shop
+		<include refid="shopWhere"></include>
+	</select>
+	
+	<!-- 查询对应的商品信息 -->
+	<select id="selShop" resultMap="BaseResultMap">
+		select shop_id, shop_name, shop_price, shop_allprice, shop_bpicture, shop_stock
+		from shop
+		<include refid="shopWhere"></include>
+		order by 
+		<if test='pageNeed.indexMore == "hotShop"'>shop_allprice desc,</if> 
+		<if test='pageNeed.indexMore == "stockShop"'>shop_stock asc,</if> 
+		shop_time desc 
+		limit #{begin }, #{pageSize}
+	</select>
+	<!-- "购物大厅"调用结束 -->
+	
+	<!-- "我的===我的店铺===商品管理开始" -->
+	<!-- 以下2条sql语句查询记录时的公共条件 -->
+	<sql id="shopPageWhere">
+		<if test='stoShop.shopId != null'>and shop_id=#{stoShop.shopId}</if>
+		<if test='stoShop.shopId == null'>
+			<if test='stoShop.shopName != null'>and shop_name like #{stoShop.shopName}</if>
+			<if test='stoShop.shopTime != null'>and shop_time > #{stoShop.shopTime}</if>
+		</if>
+	</sql>
+	
+	<!-- 根据店铺id查询商品数量 -->
+	<select id="selShopCountByStoId" resultType="java.lang.Integer">
+		select count(*) from shop 
+		where sto_id=#{stoId}
+		<include refid="shopPageWhere"></include>
+	</select>
+	
+	<!-- 根据店铺id查询商品 -->
+	<select id="selShopByStoId" resultMap="BaseResultMap">
+		select shop_id, shop_name, shop_price, shop_unit, shop_time, shop_discount, shop_stock, shop_allprice
+		from shop
+		where sto_id = #{stoId}
+		<include refid="shopPageWhere"></include>
+		order by shop_time desc
+		limit #{begin}, #{size}
+	</select>
+	
+	<!-- 返回店铺删除的商品后返回的商品 -->
+	<select id="selShopDelAfter" parameterType="java.lang.Object" resultMap="BaseResultMap">
+		select shop_id, shop_name, shop_price, shop_unit, shop_time, shop_discount, shop_stock, shop_allprice
+		from shop
+		where sto_id = #{stoId}
+		order by shop_time desc
+		limit #{begin}, #{size}
+	</select>
+	
+	<!-- 根据商品id修改商品 -->
+	<update id="updShop" parameterType="Map">
+		update shop
+			<trim prefix="set" suffixOverrides=",">
+			<if test="data.shopPrice != ''">shop_price = #{data.shopPrice},</if>
+			<if test="data.shopUnit != ''">shop_unit = #{data.shopUnit},</if>
+			<if test="data.shopStock != ''">shop_stock = #{data.shopStock},</if>
+		</trim>
+		where shop_id = #{data.shopId}
+	</update>
+	<!-- "我的===我的店铺===商品管理结束" -->
+	
+	<!-- 商品详情页开始 -->
+	<!-- 根据商品名称返回该商品的库存数和所属店铺 -->
+	<select id="selShopDiscount" parameterType="java.lang.String" resultType="map">
+		select shop_discount, sto_id from shop
+		where shop_id=
+		<if test="shopId != null">#{shopId}</if>
+		<if test="cId != null">
+			(SELECT shop_id FROM  car 
+			WHERE c_id = #{cId})
+		</if>
+	</select>
+	<!-- 商品详情页结束 -->
+	
+	<!-- 购物车开始 -->
+	<!-- 购物车中的商品数量完后修改对应商品的库存数量 -->
+	<update id="updSumByCid" parameterType="Map">
+		UPDATE shop SET
+		shop_discount = shop_discount + #{dis.oldShopNum} - #{dis.newShopNum}
+		WHERE shop_id = (
+			SELECT shop_id FROM  car 
+			WHERE c_id = #{dis.cId}
+		)
+	</update>
+	
+	<!-- 查看商品是否存在 -->
+	<select id="selIdsByIds" parameterType="List" resultType="map">
+		SELECT <foreach collection="ids" item="id" separator=",">
+			IFNULL((SELECT sh.shop_id FROM shop  sh, store st
+				WHERE sh.`sto_id` = st.`sto_id`
+				AND sh.shop_id = #{id}
+				AND st.`sto_status` != '注销')
+			,"isNull") #{id}
+		</foreach>
+	</select>
+	
+	<!-- 删除(情清空购物车的数据时修改商品的库存，结算时修改商品的总销售额) -->
+	<update id="updDisByIds" parameterType="Map">
+		<foreach collection="ids" item="id" separator=";">
+			update shop set shop_discount = shop_discount + (
+				select sum(shop_sum) from car
+				where shop_id = #{id} and u_id = #{uId})
+			where shop_id = #{id}
+		</foreach>
+	</update>
+	<!-- 购物车结束 -->
+</mapper>

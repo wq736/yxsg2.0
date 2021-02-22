@@ -1,0 +1,28 @@
+<!--引入后台---用户管理面板的js文件 -->
+<script type='text/javascript' src='js/admin/userMan/userManFunc.js'></script>
+<script type='text/javascript' src='js/admin/userMan/userManAjax.js'></script>
+<script type='text/javascript' src='js/admin/userMan/userManEvent.js'></script>
+
+<!-- 用户管理面板 -->
+<!-- 搜索框 -->
+<form class="navbar-form has-success">
+	<div class="input-group col-md-3 col-xs-5">	
+		<input type="text" class="form-control" placeholder="请输入用户名" />
+		<span class="input-group-addon glyphicon glyphicon-search"></span>		
+	</div>
+</form>
+
+<!-- 用户列表 -->
+<div class="table-responsive clear-float">
+	<table id="userTab" class="table table-striped table-hover">
+		<thead>
+			<tr><th>id</th><th>用户名</th><th>密码</th><th>联系方式</th><th>邮箱</th><th>创建时间</th><th>用户状态</th><th>操作</th></tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>	
+
+<!-- 分页条 -->
+<nav id="userManageNav" class="page table" aria-label="Page navigation">
+	<ul data-name="pageNav" class="pagination"></ul>
+</nav>

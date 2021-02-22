@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>我的</title>
+<base href="http://localhost:8080">
+<!-- 引入css、js等 -->
+<script type='text/javascript' src='js/unit/jquery-3.5.1.js' ></script>
+<script type="text/javascript" src="js/my/modal.js" ></script>
+<script type="text/javascript" src="js/public/commonJs&Css.js"></script>
+<script type="text/javascript">
+	if($.cookie("uName") == null){$(location).attr("href", "index.html");}
+</script>
+<link rel='stylesheet' type='text/css' href='css/my.css' />
+</head>
+<body>
+	<!-- 头部开始 -->
+	<nav id="headerNavBar" class="navbar navbar-inverse navbar-fixed-top"></nav>
+	<script type="text/javascript">
+		$("#headerNavBar").load("pages/public/header.html");
+		/* 设置导航条的选中样式 */
+		$(function() {$.addNavClass(6);});
+	</script>
+	
+	<!-- 中间内容区域 -->
+	<div class="container conSite">
+		<!-- 选项面板 -->
+		<ul id="myTab" class="nav nav-tabs">
+			<li class="active"><a href="#myInfo" data-toggle="tab">个人信息</a></li>
+			<li><a href="#car" data-toggle="tab">购物车</a></li>
+			<li><a href="#order" data-toggle="tab">我的订单</a></li>
+			<li class="dropdown">
+				<a id="myShop" href="#" class="dropdown-toggle" data-toggle="dropdown">
+					我的店铺
+					<b class="caret"></b>
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="myShop">
+					<li><a href="#orderList" tabindex="-1" data-toggle="tab">订单管理</a></li>
+					<li><a href="#shopList" tabindex="-1" data-toggle="tab">商品管理</a></li>
+				</ul>
+			</li>
+		</ul>
+		
+		<!-- 各个面板的内容 -->
+		<div class="tab-content">
+			<!-- 个人信息面板 -->
+			<div id="myInfo" class="tab-pane active">
+				<div class="infoHead">
+					<img src="" width="70px" height="70px" style="border-radius: 50%;" />
+					<b></b>&nbsp;&nbsp;&nbsp;&nbsp;
+					<p class="visible-xs-block"></p>
+					<button type="button" class="btn btn-primary" data-toggle="modal" id="updHeadBtn">修改头像</button>
+					<a id="exitA" class="btn btn-default">退出登录</a>
+					<a id="delMy" class="text-danger">注销账号</a>
+					<br />
+					<br />
+					<span class="lookYue">查看用户余额&gt;</span>&nbsp;&nbsp;
+					<span class="yue"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<button id="addYue" class="btn btn-primary">充值</button>
+					<button id="reduceYue" class="btn btn-primary">取出</button>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>	<!-- 个人信息 -->
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>	<!-- 店铺信息 -->
+			</div>	
+			
+			<div id="car" class="tab-pane paneHeight"></div>	<!-- 购物车 -->
+			<div id="order" class="tab-pane paneHeight"></div>	<!-- 订单面板 -->
+			<div id="shopList" class="tab-pane paneHeight"></div>	<!-- 商品管理 -->
+			<div id="orderList" class="tab-pane paneHeight"></div>	<!-- 订单管理-->
+			
+			<!-- 引入各个面板 -->
+			<script type="text/javascript">
+				$("#myInfo div:eq(1)").load("pages/user/myInfo/userInfo.html");
+				$("#myInfo div:eq(2)").load("pages/user/myInfo/storeInfo.html");
+				$("#car").load("pages/user/myCar/myCar.html");
+				$("#order").load("pages/user/myOrder/myOrder.html");
+				$("#shopList").load("pages/user/shopMan/shopMan.html");
+				$("#orderList").load("pages/user/orderMan/orderMan.html");
+			</script>
+		</div>
+	</div>
+		
+	<!-- 页脚开始 -->
+	<footer></footer>
+
+	<!-- 模态框 -->
+	<div class="modal fade bs-example-modal-sm" id="myStore" tabindex="-1"></div>	<!-- 创建店铺 -->
+	<div class="modal fade bs-example-modal-sm" id="updHead" tabindex="-1"></div>	<!-- 修改头像 -->
+	<div class="modal fade bs-example-modal-sm" id="updPass" tabindex="-1"></div>	<!-- 修改密码 -->
+	<div class="modal fade bs-example-modal-sm" id="addShop" tabindex="-1"></div>	<!-- 添加商品 -->
+	<div class="modal fade bs-example-modal-sm" id="myOrderItem" tabindex="-1"></div>	<!-- 订单详情(我的订单模块) -->
+	<div class="modal fade bs-example-modal-sm" id="befDelShop" tabindex="-1"></div>	<!-- 订单详情(删除商品后调用) -->
+	<script type="text/javascript">
+		$("#myStore").load("pages/user/myInfo/createStore.html");
+		$("#updHead").load("pages/user/myInfo/updHeadPic.html");
+		$("#updPass").load("pages/user/myInfo/updPassword.html");
+		$("#addShop").load("pages/user/shopMan/addShop.html");		
+		$("#myOrderItem").load("pages/user/myOrder/orderItem.html");		
+		$("#befDelShop").load("pages/user/shopMan/delShop.html");
+	</script>
+</body>
+</html>

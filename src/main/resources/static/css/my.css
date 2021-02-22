@@ -1,0 +1,68 @@
+/* 设置"我的"页面的颜色 */
+body{background-color: rgba(226,241,239,0.2);}
+
+/* 设置模态框头部居中 */
+.modal-title{text-align: center;}
+
+/* 设置面板的位置 */
+.conSite{margin-top: 80px}
+
+/* 设置个人信息面板的间距 */
+#myInfo{margin: 20px;}
+
+/* 设置个人信息面板上半部分的边距 */
+#myInfo .infoHead{
+	background-color: #FFFFFF;
+	padding: 20px;
+}
+
+/*设置鼠标移动到查看余额时显示手的形状*/
+#myInfo .lookYue{cursor: pointer;}
+/*设置余额默认不显示*/
+#myInfo .yue{display: none;}
+
+/* 设置个人信息面板详细信息的间距 */
+#myInfo .col-lg-6{margin-top: 20px;	}
+
+/* 设置每个列表类型面板的高度 */
+@media(min-width: 768px){
+	.paneHeight{height: 400px;}
+}
+@media(max-width: 767px){
+	.paneHeight{height:470px;}
+	#orderList form div, #shopList form div{
+		float: left;
+		margin-bottom: 10px;
+	}
+	#myTab > li a {padding: 5px;}
+	#orderList form div, #shopList form div{margin-right: 5px;}
+	#orderList form div input, #shopList form div input{font-size: 8px;}
+	#selOrderItemBtn, #shopList form button{float: left;}
+}
+
+#orderList form button, #shopList form button{margin-left: 10px;}
+
+/* 设置模态框中表单项的上间距 */
+.modal-body input {margin-bottom: 10px;}
+
+/* 设置订单详情中的操作按钮居中，文字左对齐 */
+.orderInfo{
+	border-bottom: 1px solid #cccccc;
+	padding: 10px;
+	text-align: center;
+}
+.orderInfo ul li{
+	margin-top: 6px;
+	list-style: none;
+	text-align: left;
+}
+
+
+/* 订单管理和商品管理模块去除浮动 */
+.clear-float{clear: left;}
+
+/* 模态框中表单项的间距 */
+#myStore form div, #updPass form div, #addShop form div, 
+#orderList form div, #shopList form div{margin-bottom: 5px;}
+#myStore form div input, #updPass form div input, #addShop form div input, 
+#orderList form div input, #shopList form div input{margin-top: 2px;}

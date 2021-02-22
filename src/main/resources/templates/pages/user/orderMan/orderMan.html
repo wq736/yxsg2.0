@@ -1,0 +1,43 @@
+<!-- 引入的管理面板需要的js文件 -->
+<script type='text/javascript' src='js/my/orderMan/orderManFunc.js'></script>
+<script type='text/javascript' src='js/my/orderMan/orderManAjax.js'></script>
+<script type='text/javascript' src='js/my/orderMan/orderManEvent.js'></script>
+
+<!-- 订单管理面板 -->
+<form class="navbar-form has-success">
+	<!-- 管理区域 -->
+	<div class="input-group col-sm-2 col-xs-4">
+		<span class="input-group-addon glyphicon glyphicon-user"></span>
+		<input name="uName" type="text" class="form-control" placeholder="输入顾客名称" />
+	</div>
+	<div class="input-group col-sm-2 col-xs-4">
+		<span class="input-group-addon glyphicon glyphicon-gift"></span>
+		<input name="shopName" type="text" class="form-control" placeholder="输入商品名称" />
+	</div>
+	<div class="input-group col-sm-2 col-xs-4">
+		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
+		<input name="oiTime" type="text" class="form-control" placeholder="输入购买时间" />
+	</div>
+	<div class="input-group col-sm-2 col-xs-4">
+		<span class="input-group-addon glyphicon glyphicon-hourglass"></span>
+		<input name="oiStatus" type="text" class="form-control" placeholder="输入商品状态" />
+	</div>
+	<button id="selOrderItemBtn" type="button" class="btn btn-primary">筛选</button>
+</form>
+
+<!-- 订单列表 -->
+<div class="table-responsive clear-float">				
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr><th>顾客名称</th><th>商品名称</th><th>商品价格</th><th>购买数量</th><th>购买时间</th><th>订单状态</th><th>操作</th></tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+
+<!-- 分页 -->
+<nav id="orderManageNav" class="page table" aria-label="Page navigation">
+	<ul data-name="pageNav" class="pagination" >
+
+	</ul>
+</nav>

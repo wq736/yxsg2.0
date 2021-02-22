@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxsg.mapper.OrderMapper">
+	<!-- 个人订单面板开始 -->
+	<!-- 根据用户id查看对应的订单数量 -->
+	<select id="selMyOrdCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(o_id) from `order`		
+		where u_id=#{uId}
+	</select>
+	
+	<!-- 根据用户id查看订单信息 -->
+	<select id="selOrdByUid" parameterType="java.lang.Integer" resultType="com.yxsg.bean.Order">
+		select o_id, o_num, o_price, o_status, o_time
+		from `order`
+		where u_id=#{uId}
+		limit #{begin}, #{pageSize}
+	</select>
+	
+	<!-- 根据订单id或用户id删除订单 -->
+	<delete id="deleteById" parameterType="java.lang.Object">
+		delete from `order`
+		where <if test="uId != null">u_id = #{uId}</if>
+			  <if test="oId != null">o_id = #{oId}</if>
+	</delete>
+	<!-- 个人订单面板结束 -->
+</mapper>

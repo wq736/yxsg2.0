@@ -1,0 +1,24 @@
+<!-- 包含修改状态的模态框 -->
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="close">&times;</button>
+			<h4 id="updStaTitle" class="modal-title">修改状态</h4>
+			<input id="updStaIndex" type="hidden" />
+			<input id="updTabName" type="hidden" />
+		</div>
+		<div class="modal-body">
+			<form class="has-success">
+				<input name="status" type="radio" checked="checked" value="1" />禁用1天
+				<input name="status" type="radio" value="7" />禁用7天
+				<input name="status" type="radio" value="30" />禁用30天
+				<input name="status" type="radio" value="0" />永久禁用				
+				<input name="status" type="radio" value="-1" />取消禁用				
+			</form>
+		</div>
+		<div class="modal-footer">
+			<input id="" class="btn btn-success" type="button" value="修改" />
+			<input class="btn btn-default" type="button" data-dismiss="modal" value="取消" />
+		</div>
+	</div>
+</div>

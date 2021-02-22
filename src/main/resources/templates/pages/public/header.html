@@ -1,0 +1,81 @@
+<!-- 导入导航条需要的函数、ajax请求、事件 -->
+<script type='text/javascript' src='js/public/header/headerFunc.js'></script>
+<script type='text/javascript' src='js/public/header/headerAjax.js'></script>
+<script type='text/javascript' src='js/public/header/headerEvent.js'></script>
+<script type="text/javascript">
+/* 设置导航条的选中样式 */
+$.addNavClass = function(i) {
+	$("#menu ul li").siblings(".active").removeClass("active");
+	$("#menu ul").children("li").eq(i).addClass("active");
+}
+</script>
+
+<!-- 设置页面宽度 < 768px时导航条为下拉导航条 -->
+<div class="navbar-header">
+	<a href="index.html">
+		<img src="img/logo.png" class="logo"/>
+	</a>	
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
+</div>
+
+<!-- 导航条 -->
+<div id="menu" class="collapse navbar-collapse">
+	<ul class="nav navbar-nav">
+		<li class="active"><a href="index.html">首页</a></li>
+		<li><a data-joinTo="shopAll">购物大厅</a></li>
+		<!-- 利用下拉菜单根据产品类型进行分类 -->
+		<li class="dropdown-toggle hidden-xs hidden-sm hidden-md">
+			<a data-toggle="dropdown">谷物<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a>大米</a></li>
+				<li><a>小米</a></li>
+				<li><a>小麦</a></li>
+				<li><a>大豆</a></li>
+			</ul>
+		</li>
+		<li class="dropdown-toggle hidden-xs hidden-sm hidden-md">
+			<a data-toggle="dropdown">瓜果<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a>苹果</a></li>
+				<li><a>石榴</a></li>
+				<li><a>葡萄</a></li>
+				<li><a>橘子</a></li>
+			</ul>
+		</li>
+		<li class="dropdown-toggle hidden-xs hidden-sm hidden-md">
+			<a href="#" data-toggle="dropdown">蔬菜<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a>莲藕</a></li>
+				<li><a>豆角</a></li>
+				<li><a>山药</a></li>
+				<li><a>白菜</a></li>
+			</ul>
+		</li>
+		<li class="dropdown-toggle hidden-xs hidden-sm hidden-md">
+			<a data-toggle="dropdown">副产品<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a>红枣</a></li>
+				<li><a>枸杞</a></li>
+				<li><a>柿饼</a></li>
+				<li><a>桂圆干</a></li>
+			</ul>
+		</li>
+		<li><a id="myA">我的</a></li>
+		<li><a id="adminA">后台管理</a></li>		
+	</ul>
+	
+	<!-- 登录注册 -->
+	<ul id="logreg" class="nav navbar-nav navbar-right"></ul>
+	
+	<!-- 搜索框 -->
+	<form id="headSeaInput" class="col-xs-4 col-sm-2 col-md-3 col-lg-2 navbar-right">
+		<div class="input-group has-success">
+			<input type="text" class="form-control" />
+			<span class="input-group-addon glyphicon glyphicon-search" aria-hidden="true"></span>
+		</div>
+	</form>
+</div>

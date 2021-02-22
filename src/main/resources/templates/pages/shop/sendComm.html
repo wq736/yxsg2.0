@@ -1,0 +1,27 @@
+<!-- 发送评论模态框 -->
+<div class="modal-dialog modal-sm">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true" aria-label="close">&times;</button>
+			<h4 id="addShopTitle" class="modal-title">发送评论</h4>
+		</div>
+		<div class="modal-body">
+			<form id="addCommontForm" enctype="multipart/form-data">
+				<textarea name="comContent" class="form-control" cols="30" rows="5" placeholder="请输入对商品的评价(不超过50字)"></textarea><br />
+				请选择评分：<br />
+				1<input name="comMark" type="radio" value="1" />&nbsp;&nbsp;
+				2<input name="comMark" type="radio" value="2" />&nbsp;&nbsp;
+				3<input name="comMark" type="radio" value="3" checked="checked" />&nbsp;&nbsp;
+				4<input name="comMark" type="radio" value="4" />&nbsp;&nbsp;
+				5<input name="comMark" type="radio" value="5" />&nbsp;&nbsp;
+				<input name="comPic" type="file" title="请选择添加的图片(可不设置)" multiple="multiple"  accept="image/*" />
+				<input name="comPic" type="file" title="请选择添加的图片(可不设置)" multiple="multiple"  accept="image/*" />
+				<input name="comPic" type="file" title="请选择添加的图片(可不设置)" multiple="multiple"  accept="image/*" />
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button id="saveCommontBtn" class="btn btn-success" type="button">上传</button>
+			<button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
+		</div>
+	</div>
+</div>

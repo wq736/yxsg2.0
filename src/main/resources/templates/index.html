@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="http://localhost:8080">
+    <!-- 引入css、js等 -->
+    <script type='text/javascript' src='js/unit/jquery-3.5.1.js' ></script>
+    <script type="text/javascript" src="js/public/commonJs&Css.js"></script>
+    <script type='text/javascript' src='js/index/index.js'></script>
+    <link rel='stylesheet' type='text/css' href='css/index.css' />
+    <style type="text/css">
+        .container{margin-top: 20px}
+    </style>
+</head>
+<body>
+<!-- 头部(开始) -->
+<header>
+    <!-- 导航条 -->
+    <nav id="headerNavBar" class="navbar navbar-inverse navbar-fixed-top">
+
+    </nav>
+    <script type="text/javascript">
+        $("#headerNavBar").load("pages/public/header.html");
+    </script>
+    <!-- 轮播动画 -->
+    <div id="lb" class="carousel slide">
+        <ol class="carousel-indicators">
+            <li data-target="#lunbo" data-slide-to="0" class="active"></li>
+            <li data-target="#lunbo" data-slide-to="1"></li>
+            <li data-target="#lunbo" data-slide-to="2"></li>
+        </ol>
+        <!-- 轮播图片 -->
+        <div class="carousel-inner">
+            <img class="item active" src="img/lunbo/lb1.JPG" width="100%" />
+            <img class="item" src="img/lunbo/lb2.JPG" width="100%" />
+            <img class="item"src="img/lunbo/lb3.JPG" width="100%" />
+        </div>
+    </div>
+</header>
+<!-- 头部(结束) -->
+
+<!-- 中间内容区域(开始) -->
+<!-- 季节推荐 -->
+<div class="container shopArea">
+    <div class="col-lg-12">
+        <h4><img src="img/index/winter.jpg" class="winter">季节推荐</h4>
+    </div>
+    <!-- 图片 -->
+    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs bg1">
+        <button id="seasonShop" class="btn btn-danger bj-button">更多</button>
+    </div>
+    <!-- 商品 -->
+    <div id="indexSeasonShop"></div>
+</div>
+<!-- 热门商品 -->
+<div class="container shopArea">
+    <div class="col-lg-12">
+        <h4><img src="img/index/remai.jpg" class="remai">热门商品</h4>
+    </div>
+    <!-- 图片 -->
+    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs bg2">
+        <button id="hotShop" class="btn btn-success bj-button">更多</button>
+    </div>
+    <!-- 商品 -->
+    <div id="indexHotShop"></div>
+</div>
+<!-- 打折促销 -->
+<div class="container shopArea">
+    <div class="col-lg-12">
+        <h4><img src="img/index/stock.jpg" class="stock">打折促销</h4>
+    </div>
+    <!-- 图片 -->
+    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs bg3">
+        <button id="stockShop" class="btn btn-danger bj-button">更多</button>
+    </div>
+    <!-- 商品 -->
+    <div id="indexStockShop"></div>
+</div>
+<!-- 中间内容区域(结束) -->
+
+<!-- 页脚(开始) -->
+<footer></footer>
+<!-- 页脚(结束) -->
+
+<!-- 模态框 -->
+<div class="modal fade bs-example-modal-sm" id="login" tabindex="-1"></div>		<!-- 登录 -->
+<div class="modal fade bs-example-modal-sm" id="register" tabindex="-1"></div>	<!-- 注册 -->
+<script type="text/javascript">
+    $("#login").load("pages/public/login.html");
+    $("#register").load("pages/public/register.html");
+</script>
+</body>
+</html>

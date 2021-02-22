@@ -1,0 +1,42 @@
+/* 网站首页的css样式 */
+/*设冬季推荐/热门产品/打折促销图标大小*/
+.winter, .remai, .stock{
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+}
+
+/*设置鼠标在商品上时显示手的形状 */
+.container ul{
+	cursor: pointer;
+	list-style-type : none;
+	border: #CCCCCC solid 1px;
+	margin: 0px;
+}
+
+/* 设置推荐区的商品title */
+h4{
+	text-align: center;
+	font-family: "微软雅黑";
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* 设置推荐区的商品内容 */
+.shopArea li{
+	list-style: none;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* 推荐区的背景 */
+.bg1{background-image: url(../img/index/bg1.png);}
+.bg2{background-image: url(../img/index/bg2.png);}
+.bg3{background-image: url(../img/index/bg3.png);}
+
+/* 推荐区的"更多按钮位置" */
+.bj-button{
+	margin-top: 100px;
+	margin-left: 20px
+}

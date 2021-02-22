@@ -1,0 +1,43 @@
+/* 购物大厅 */
+/*设置鼠标在商品上时显示手的形状 */
+.container ul{
+	cursor: pointer;
+	list-style-type : none;	
+}
+
+/* 设置列表的下边框及间距 */
+#shopClassBar first-child{margin-top: 10px;}
+.list-group-horizontal{
+	border-bottom:#CCCCCC solid 1px;
+	margin-top: 0;
+	margin-bottom: 5px;
+	line-height: 7px
+}
+/* 设置商品分类条的边距 */
+.conSite{margin-top: 60px}
+
+/* 设置列表为横向列表 */
+.list-group-horizontal .list-group-item {
+	border: 0px;
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left:-4px;
+    margin-right: 0;
+}
+.list-group-item:hover{color:#0080c0;	}
+.list-group li:first-of-type:hover{
+	cursor: auto;
+	color: #000000;
+}
+.list-group-item-hover{
+	color:#0080c0;	
+	font-weight: bold;	
+}
+/* 设置超链接无下划线 */
+.list-group-horizontal .list-group-item a{
+	text-decoration: none;
+}
+/* 去掉商品中的小圆点 */
+.shop{
+	list-style: none;
+}

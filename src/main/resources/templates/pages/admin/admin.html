@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>后台管理</title>
+<!-- 设置超链接开始地址 -->
+<base href="http://localhost:8080">
+<!-- 引入css、js等 -->
+<script type='text/javascript' src='js/unit/jquery-3.5.1.js' ></script>
+<script type="text/javascript" src="js/admin/adminModal.js"></script>
+<script type="text/javascript" src="js/public/commonJs&Css.js"></script>
+<link rel='stylesheet' type='text/css' href='css/admin.css' />
+<script type="text/javascript">
+	if($.cookie("uName") == null){$(location).attr("href", "index.html");}
+</script>
+<style type="text/css">
+	body{background-color:rgba(226,241,239,0.2);}
+	.tab-pane{height: 400px;}
+</style>
+</head>
+<body>
+	<!-- 导航条 -->
+	<nav id="headerNavBar" class="navbar navbar-inverse navbar-fixed-top"></nav>
+	<script type="text/javascript">
+		$("#headerNavBar").load("pages/public/header.html");
+		/* 设置导航条的选中样式 */
+		$(function() {$.addNavClass(7);});
+	</script>
+	
+	<!-- 内容区域 -->
+	<div class="container conSite">
+		<!-- 选项面板 -->
+		<ul id="manageTab" class="nav nav-tabs">
+			<li class="active"><a href="#user" data-toggle="tab">用户管理</a></li>
+			<li><a href="#store" data-toggle="tab">店铺管理</a></li>
+		</ul>
+		<!-- 各个面板的内容 -->
+		<div class="tab-content">
+			<div id="user" class="tab-pane active"></div>	<!-- 用户管理 -->
+			<div id="store" class="tab-pane"></div>			<!-- 店铺管理 -->			
+			<script type="text/javascript">
+				$("#user").load("pages/admin/admin/userMan.html");
+				$("#store").load("pages/admin/admin/storeMan.html");
+			</script>
+		</div>
+	</div>
+	
+	<!-- 页面底部 -->
+	<footer></footer>
+	
+	<!-- 模态框 -->
+	<div class="modal fade bs-example-modal-sm" id="updStatus" tabindex="-1"></div>	<!-- 修改状态 -->
+	<script type="text/javascript">
+		$("#updStatus").load("pages/admin/admin/updStatus.html");
+	</script>
+</body>
+</html>

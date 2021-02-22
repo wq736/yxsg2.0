@@ -1,0 +1,53 @@
+<!-- 引入个人信息面板的js -->
+<script type='text/javascript' src='js/my/myInfo/myInfoFunc.js'></script>
+<script type='text/javascript' src='js/my/myInfo/myInfoAjax.js'></script>
+<script type='text/javascript' src='js/my/myInfo/myInfoEvent.js'></script>
+
+<!--个人信息面板 -->
+<div class="panel panel-default">
+	<div class="panel-heading">个人信息</div>
+	<div class="panel-body">
+		<form class="form-horizontal">
+			<input id="myInfoId" type="hidden">
+			<!-- 设置内容不可使用 -->
+			<fieldset disabled>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">用户名：</label>
+					<div class="col-lg-9">
+						<input name="uName" type="text" class="form-control" value="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">邮箱：</label>
+					<div class="col-lg-9">
+						<input name="uEmail" type="tel" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">联系方式：</label>
+					<div class="col-lg-9">
+						<input name="uTel" type="tel" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">注册时间：</label>
+					<div class="col-lg-9">
+						<input name="uTime" type="text" class="form-control" disabled>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-lg-3 control-label">账号状态：</label>
+					<div class="col-lg-9">
+						<input name="uStatus" type="text" class="form-control" disabled>
+					</div>
+				</div>
+			</fieldset>
+			<div class="form-group btns">
+				<button id="userUpdateBtn" type="button" class="btn btn-default">修改</button>
+				<input id="saveUserBtn" type="button" class="btn btn-primary" value="保存" disabled />
+				<input id="updPassBtn" type="button" class="btn btn-primary" value="修改密码" disabled />
+			</div>
+		</form>
+	</div>
+</div>
+				
