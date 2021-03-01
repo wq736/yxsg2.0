@@ -1,15 +1,18 @@
 package com.yxsg.bean;
 
+/**
+ * 评论
+ */
 public class Comment {
-    private String comTime;
-    private String uName;
-    private Integer comMark;
-    private String comContent;
-    private String comPic1;
-    private String comPic2;
-    private String comPic3;
-    private String shopId;
-    private String uHeader;
+    private String comTime;	//评论的时间
+    private String uName;	//用户名
+    private Integer comMark;	//分数
+    private String comContent;	//评论的内容
+    private String comPic1;	//上传的图片1路径
+    private String comPic2;	//上传的图片2路径
+    private String comPic3;	//上传的图片3路径
+    private String shopId;	//商品id
+    private String uHeader;	//用户头像路径
     public Comment() {}
 	public Comment(String comTime, String uName, Integer comMark, String comContent, String comPic1, String comPic2,
 			String comPic3, String shopId, String uHeader) {
