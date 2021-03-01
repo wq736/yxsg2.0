@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 /**
  * 商品信息
  */
-@Data
 public class Shop {
     private String shopId;			//商品编号
     private String shopName;			//商品名称
