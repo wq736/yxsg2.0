@@ -9,19 +9,19 @@ import java.math.BigDecimal;
 @Data
 public class Shop {
     private String shopId;			//商品编号
-    private String shopName;		//商品名称
-    private String shopClass;		//商品类型
-    private BigDecimal shopPrice;	//商品单价
-    private String shopUnit;		//价格单位
-    private String shopTime;		//更新时间
-    private Integer shopStock;		//折扣
-    private Integer shopDiscount;	//库存
-    private String shopBpicture;	//大图
-    private String shopSpicture1;	//小图1
-    private String shopSpicture2;	//小图2
-    private String shopSpicture3;	//小图3
+    private String shopName;			//商品名称
+    private String shopClass;			//商品类型
+    private BigDecimal shopPrice;		//商品单价
+    private String shopUnit;			//价格单位
+    private String shopTime;			//更新时间
+    private Integer shopStock;			//折扣
+    private Integer shopDiscount;		//库存
+    private String shopBpicture;		//大图
+    private String shopSpicture1;		//小图1
+    private String shopSpicture2;		//小图2
+    private String shopSpicture3;		//小图3
     private Integer stoId;			//所属店铺
-    private BigDecimal shopAllPrice;//累计销量
+    private BigDecimal shopAllPrice;		//累计销量
     
     public Shop() {}
 	public Shop(String shopId, String shopName, String shopClass, BigDecimal shopPrice, String shopUnit, String shopTime,
