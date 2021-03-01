@@ -81,7 +81,7 @@ public class Utils {
 	 */
 	public static <T> PageBean<T> getPage(Integer pageCount, Integer pageSize) {
 		Integer pageTotal = pageCount / pageSize;
-		if(pageCount % pageSize != 0) {pageTotal++;}
+		if(pageCount % pageSize != 0) {pageTotal++;}	//获取总页码
 		return new PageBean<T>(null, pageTotal, pageCount, pageSize);
 	}
 
@@ -91,21 +91,21 @@ public class Utils {
 	public static <T> PageBean<T> getPage(PageBean<T> page, Integer pageOn) {
 		page.setPageOn(pageOn);
 		Integer pageTotal = page.getPageTotal();
-		if(pageTotal > 5) {
-			if(pageOn > pageTotal - 2) {
+		if(pageTotal > 5) {	//总页码大于5
+			if(pageOn > pageTotal - 2) {	//当前页为最后2页
 				page.setPageBegin(pageTotal - 4);
 				page.setPageEnd(pageTotal);
-			} else if(pageOn > 3) {
+			} else if(pageOn > 3) {	//当前页为中间的几页
 				page.setPageBegin(pageOn - 2);
 				page.setPageEnd(pageOn + 2);
-			} else {
+			} else {	//当前页为前2页
 				page.setPageBegin(1);
 				page.setPageEnd(5);
 			}
-		} else if(pageTotal <= 5 && pageTotal > 1) {
+		} else if(pageTotal <= 5 && pageTotal > 1) {	//总页码在1~5之间
 			page.setPageBegin(1);
 			page.setPageEnd(pageTotal);
-		} else {
+		} else {	//不显示页码
 			page.setPageBegin(0);
 			page.setPageEnd(-1);
 		}
@@ -119,19 +119,19 @@ public class Utils {
 		Map<String, Object> getLimPageParam = new HashMap<String, Object>();
 		Integer begin = 0, size = 0;
 		if(pageOn == pageTotal && pageCount % pageSize > 1 || pageTotal == 1) {
-			begin = null;
+			begin = null;	//当前页为最后一页且该页的记录数>1或者只有一页时不用查询
 		}  else {
-			if(pageCount % pageSize == 1 && pageOn > 1) {
+			if(pageCount % pageSize == 1 && pageOn > 1) {	//当前页不为第1页且该页只有一条记录时返回前一页的数据
 				pageOn--;
 				begin = (pageOn - 1) * pageSize;
 				size = pageSize;
-			} else {
+			} else {	//返回下一条数据
 				begin = pageOn * pageSize - 1;
 				size = 1;
 			}
 		}
-		pageCount--;
-		if(pageCount % pageSize == 0) {pageTotal--;}
+		pageCount--;	//总记录数-1
+		if(pageCount % pageSize == 0) {pageTotal--;}	//设置总页码
 		PageBean<Object> page = new PageBean<Object>(pageOn, pageTotal, pageCount, pageSize);
 		getLimPageParam.put("page", page);
 		getLimPageParam.put("begin", begin);
