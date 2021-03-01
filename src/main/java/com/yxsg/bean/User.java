@@ -9,18 +9,17 @@ import java.math.BigDecimal;
  */
 public class User {
     
-	private Integer uId;		//用户id
+    private Integer uId;		//用户id
     private String uName;		//用户名
-    private String uPassword;	//登录密码
+    private String uPassword;		//登录密码
     private String uEmail;		//邮箱
     private String uTel;		//联系电话
     private String uTime;		//创建时间
     private String uStatus;		//用户的状态
     private String uGender;		//用户等级，1表示后台管理员，2表示普通用户
     private String uHeader;		//用户头像
-    private BigDecimal uMoney;	//用户金额
-
-    //构造器：用于创建对象(传入字段的值)
+    private BigDecimal uMoney;		//用户金额
+	
     public User() {}
     public User(Integer uId, String uName, String uPassword, String uEmail, String uTel, String uTime, String uStatus, 
     			String uGender, String uHeader, BigDecimal uMoney) {
