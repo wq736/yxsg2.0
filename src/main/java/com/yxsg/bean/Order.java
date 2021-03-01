@@ -10,7 +10,7 @@ public class Order {
     private String oId;			//订单号
     private String oTime;		//创建时间
     private Integer oNum;		//商品总数
-    private BigDecimal oPrice;	//商品总价
+    private BigDecimal oPrice;		//商品总价
     private String oStatus;		//订单状态
     private Integer uId;		//所属用户id
 	public Order() {}
