@@ -7,17 +7,17 @@ package com.yxsg.bean;
 import java.math.BigDecimal;
 
 public class OrderItem {
-    private Integer uId;			//用户id
-    private Integer stoId;			//店铺id
-    private String uName;			//用户名
+    private Integer uId;		//用户id
+    private Integer stoId;		//店铺id
+    private String uName;		//用户名
     private String shopName;		//商品名称
-    private String oiTime;			//商品添加至购物车的时间
+    private String oiTime;		//商品添加至购物车的时间
     private Integer oiCount;		//商品数量
     private BigDecimal oiPrice;		//商品价格
     private String oiStatus;		//商品状态
-    private String oId;				//订单号
-    private String exitWhy;			//退货原因
-    private String sCan;			//是否显示，Y显示、N不显示
+    private String oId;			//订单号
+    private String exitWhy;		//退货原因
+    private String sCan;		//是否显示，Y显示、N不显示
     private String aboutSto;		//关于店铺
 	public OrderItem() {}
 	public OrderItem(Integer uId, Integer stoId, String uName, String oiTime, Integer oiCount, BigDecimal oiPrice, String oiStatus,
