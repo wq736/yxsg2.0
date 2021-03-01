@@ -49,16 +49,16 @@ public class CarServiceImpl implements CarService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public String addCar(Map<String, String> carData) {
-		Map<String, Integer> result = shopMapper.selShopDiscount(carData.get("shopId"), null);
+		Map<String, Integer> result = shopMapper.selShopDiscount(carData.get("shopId"), null);	//查看当前商品在库存中的数量
 		Integer newNum = Integer.valueOf(carData.get("shopSum"));
 
-		if(newNum > result.get("shop_discount")) {return null;}
+		if(newNum > result.get("shop_discount")) {return null;}	//与库存进行比较
 
-		Integer uId = userMapper.selUidByName(carData.get("uName"));
-		Integer oldNum = carMapper.selNumByIdPrice(uId, carData.get("shopId"), new BigDecimal(carData.get("shopPrice")));
-		if(oldNum != null) {
+		Integer uId = userMapper.selUidByName(carData.get("uName"));	//获取用户id
+		Integer oldNum = carMapper.selNumByIdPrice(uId, carData.get("shopId"), new BigDecimal(carData.get("shopPrice")));	//查看当前商品在购物车中的数量
+		if(oldNum != null) {	//购物车中存在当前商品时对数据进行累加
 			carMapper.updSumById(carData.get("shopId"), oldNum + newNum);
-		} else {
+		} else {	//不存在时添加一条记录
 			long time = System.currentTimeMillis();
 			carData.put("uId", uId + "");
 			carData.put("cId", carData.get("uId") + "-" + time);
@@ -66,7 +66,7 @@ public class CarServiceImpl implements CarService {
 			carData.put("cTime", Utils.getTime());
 			carMapper.insert(carData);
 		}
-		shopMapper.updDiscountByName(carData.get("shopId"), Integer.valueOf(carData.get("shopSum")));
+		shopMapper.updDiscountByName(carData.get("shopId"), Integer.valueOf(carData.get("shopSum")));	//修改商品库存
 		return "success";
 	}
 	/* 商品详情页结束 */
@@ -132,21 +132,21 @@ public class CarServiceImpl implements CarService {
 	public PageBean<Car> delAshop(Integer uId, String cId, Integer pageCount, Integer pageOn, Integer pageTotal) {
 		Map<String, Object> param = Utils.getLimPageParam(pageCount, pageOn, pageTotal, Utils.TAB_SIZE);
 		PageBean<Car> page = (PageBean<Car>) param.get("page");
-		page = Utils.getPage(page, page.getPageOn());
+		page = Utils.getPage(page, page.getPageOn());	//设置分页
 
 		List<String> shopIdList = new ArrayList<String>();
 		String shopId = carMapper.selShopIdById(null, cId).get(0);
 		shopIdList.add(shopId);
-		shopMapper.updDisByIds(shopIdList, uId);
-		carMapper.delCarByUid(null, cId);
+		shopMapper.updDisByIds(shopIdList, uId);	//修改库存
+		carMapper.delCarByUid(null, cId);	//根据购物id删除购物车中的记录
 
 		List<Car> carList = null;
-		if(param.get("begin") != null) {
+		if(param.get("begin") != null) {	//查询需要返回的记录
 			Integer begin = Integer.valueOf(param.get("begin") + "");
 			Integer size = Integer.valueOf(param.get("size") + "");
 			carList = carMapper.selCarByUname(uId, begin, size);
 		}
-		page.setList(carList);
+		page.setList(carList);	//将查到的购物车的数据放入分页模型
 		return page;
 	}
 
@@ -167,9 +167,9 @@ public class CarServiceImpl implements CarService {
 	public void jsMyCar(Integer uId, Integer oNum, BigDecimal oPrice) {
 		String oId = "o-" + System.currentTimeMillis();
 		String oTime = Utils.getTime();
-		orderMapper.insert(oId, oTime, oNum, oPrice, "未发送", uId);
-		List<OrderItem> orderItems = carMapper.selectAll(uId);
-		orderItemMapper.insert(orderItems, "未发送", oId);
+		orderMapper.insert(oId, oTime, oNum, oPrice, "未发送", uId);	//添加订单
+		List<OrderItem> orderItems = carMapper.selectAll(uId);	
+		orderItemMapper.insert(orderItems, "未发送", oId);		//添加订单详情
 	}
 
 	/**
